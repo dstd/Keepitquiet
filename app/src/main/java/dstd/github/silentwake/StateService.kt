@@ -32,7 +32,8 @@ class StateService : Service() {
     }
 
     private fun configureForeground() {
-        val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), 0)
+        val intentFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else 0
+        val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), intentFlags)
         val notif = NotificationCompat.Builder(this, foregroundChannel)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.service_notification_text))
