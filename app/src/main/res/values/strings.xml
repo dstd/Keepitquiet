@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Silent Wake</string>
+    <string name="service_notification_text">Service is active</string>
+    <string name="target_volume_level">Reduce volume level to:</string>
+    <string name="volume_level_percent" translatable="false">%d%%</string>
+    <string name="take_current_volume_level">Take current volume level</string>
+</resources>
