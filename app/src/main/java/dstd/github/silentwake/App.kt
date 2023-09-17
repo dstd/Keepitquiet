@@ -14,6 +14,7 @@ class App: Application() {
 
         context = this
         dependencies = Dependencies(this)
+        logger.enabled = dependencies.settings.debug
         StateService.applyActiveState()
     }
 

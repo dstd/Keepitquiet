@@ -13,9 +13,15 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
+import kotlin.reflect.KClass
 
 class Logger {
+    var enabled = false
+
     fun print(priority: Int, tag: String, msg: String) {
+        if (!enabled)
+            return
+
         Log.println(priority, tag, msg)
         val sync = priority == Log.ASSERT
         if (sync)
@@ -114,6 +120,7 @@ class Logger {
 
 var logger: Logger = Logger()
 
+val <T: Any> KClass<T>.nameTag: String get() = this.java.name.substringAfterLast(".").removeSuffix("\$Companion")
 inline fun Any.logd(msg: () -> String) {
-    logger.print(Log.DEBUG, this::class.java.simpleName, msg())
+    logger.print(Log.DEBUG, this::class.nameTag, msg())
 }

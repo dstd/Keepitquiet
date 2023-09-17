@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Тихое включение</string>
+    <string name="app_name">Эй, потише!</string>
+    <string name="enable_debug">Отладочный режим</string>
     <string name="service_notification_text">Сервис активен</string>
-    <string name="target_volume_level">Уменьшать громкость до:</string>
+    <string name="show_notification">Показывать уведомление</string>
+    <string name="reduce_when_off">Тише при выключении экрана</string>
+    <string name="reduce_when_music_stop">Тише при остановке музыки</string>
+    <string name="reduce_volume">Снижать громкость до:</string>
     <string name="take_current_volume_level">Взять текущую громкость</string>
+    <string name="combine_volume">Объединить громкость уведомлений и звонка</string>
 </resources>

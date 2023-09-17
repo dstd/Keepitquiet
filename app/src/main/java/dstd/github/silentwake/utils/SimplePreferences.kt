@@ -1,8 +1,6 @@
 package dstd.github.silentwake.utils
 
 import android.content.Context
-import kotlin.properties.PropertyDelegateProvider
-import kotlin.properties.ReadOnlyProperty
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
