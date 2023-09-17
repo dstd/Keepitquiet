@@ -139,7 +139,7 @@ class StateService : Service() {
             val am = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
             val max = am.getStreamMaxVolume(stream)
             val current = am.getStreamVolume(stream)
-            val new = max * App.dependencies.settings.reducedVolumeLevel / 100
+            val new = App.dependencies.settings.reducedVolumeLevel
             if (new < current) {
                 logd { "reduce due to $source, $current > $new of $max" }
                 am.setStreamVolume(AudioManager.STREAM_MUSIC, new, 0)

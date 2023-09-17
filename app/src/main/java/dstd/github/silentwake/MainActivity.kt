@@ -82,16 +82,14 @@ class MainActivity: Activity() {
 
     private fun takeCurrentVolume() {
         val am = getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
-        val max = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC).takeIf { it != 0 } ?: return
-        val current = am.getStreamVolume(AudioManager.STREAM_MUSIC)
-        val volumePercents = current * 100 / max
-
-        settings.reducedVolumeLevel = volumePercents
+        settings.reducedVolumeLevel = am.getStreamVolume(AudioManager.STREAM_MUSIC)
         applyVolumeLevel()
     }
 
     private fun applyVolumeLevel() {
+        val am = getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
         views.volumeLevel.apply {
+            max = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
             progress = settings.reducedVolumeLevel
             seekBarListener.onProgressChanged(this, progress, false)
         }
@@ -99,7 +97,8 @@ class MainActivity: Activity() {
 
     private val seekBarListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-            views.volumePercent.text = getString(R.string.volume_level_percent, progress)
+            val percent = if (seekBar.max > 0) progress * 100 / seekBar.max else 0
+            views.volumePercent.text = getString(R.string.volume_level_percent, percent)
             if (fromUser)
                 settings.reducedVolumeLevel = seekBar.progress
         }
