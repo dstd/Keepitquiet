@@ -44,10 +44,7 @@ class StateService : Service() {
         if (settings.combineLevels)
             combineVolumeLevels()
 
-        if (settings.stateNotification)
-            showForegroundNotice()
-        else
-            dismissForegroundNotice()
+        showForegroundNotice()
         return START_STICKY
     }
 
@@ -61,14 +58,6 @@ class StateService : Service() {
             .setContentIntent(pendingIntent)
             .build()
         startForeground(ONGOING_NOTIF_ID, notif)
-    }
-
-    private fun dismissForegroundNotice() {
-        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager ?: return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            stopForeground(STOP_FOREGROUND_REMOVE)
-        else
-            stopForeground(true)
     }
 
     private val foregroundChannel: String get() {

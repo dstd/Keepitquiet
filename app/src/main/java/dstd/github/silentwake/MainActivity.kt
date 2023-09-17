@@ -21,10 +21,6 @@ class MainActivity: Activity() {
         views = ActivityMainBinding.inflate(layoutInflater)
         setContentView(views.root)
 
-        views.showNotification.apply {
-            isChecked = settings.stateNotification
-            setOnClickListener { applyNotificationState() }
-        }
         views.reduceWhenOff.apply {
             isChecked = settings.reduceWhenOff
             setOnClickListener { applyReduceState() }
@@ -61,11 +57,6 @@ class MainActivity: Activity() {
         }
 
         applyVolumeLevel()
-        StateService.applyActiveState()
-    }
-
-    private fun applyNotificationState() {
-        settings.stateNotification = views.showNotification.isChecked
         StateService.applyActiveState()
     }
 

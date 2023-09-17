@@ -4,7 +4,6 @@ import android.content.Context
 import dstd.github.silentwake.utils.SimplePreferences
 
 class Settings(context: Context): SimplePreferences(context) {
-    var stateNotification: Boolean by BoolPreference(true)
     var combineLevels: Boolean by BoolPreference(false)
     var reduceWhenOff: Boolean by BoolPreference(true)
     var reduceWhenStopMusic: Boolean by BoolPreference(false)
