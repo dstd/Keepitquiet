@@ -1,4 +1,4 @@
-package dstd.github.silentwake
+package dstd.github.keepitquiet
 
 import android.app.Activity
 import android.app.NotificationManager
@@ -9,7 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.SeekBar
-import dstd.github.silentwake.databinding.ActivityMainBinding
+import dstd.github.keepitquiet.databinding.ActivityMainBinding
 
 class MainActivity: Activity() {
     private val settings = App.dependencies.settings

@@ -1,4 +1,4 @@
-package dstd.github.silentwake.utils
+package dstd.github.keepitquiet.utils
 
 import android.content.Context
 import kotlin.properties.ReadWriteProperty

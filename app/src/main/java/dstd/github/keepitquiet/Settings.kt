@@ -1,7 +1,7 @@
-package dstd.github.silentwake
+package dstd.github.keepitquiet
 
 import android.content.Context
-import dstd.github.silentwake.utils.SimplePreferences
+import dstd.github.keepitquiet.utils.SimplePreferences
 
 class Settings(context: Context): SimplePreferences(context) {
     var combineLevels: Boolean by BoolPreference(false)

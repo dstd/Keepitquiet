@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "dstd.github.silentwake"
+        applicationId "dstd.github.keepitquiet"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1

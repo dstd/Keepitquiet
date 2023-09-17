@@ -1,4 +1,4 @@
-package dstd.github.silentwake
+package dstd.github.keepitquiet
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

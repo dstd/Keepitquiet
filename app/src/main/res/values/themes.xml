@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.SilentWake" parent="@style/Theme.Leanback" />
+    <style name="Theme.Main" parent="@style/Theme.Leanback" />
     <style name="Theme.EditText" parent="@style/Theme.Leanback">
         <item name="android:background">@drawable/material_edit_text_normal</item>
     </style>

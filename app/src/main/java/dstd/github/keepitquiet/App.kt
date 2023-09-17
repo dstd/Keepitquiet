@@ -1,4 +1,4 @@
-package dstd.github.silentwake
+package dstd.github.keepitquiet
 
 import android.annotation.SuppressLint
 import android.app.Application

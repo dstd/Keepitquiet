@@ -1,4 +1,4 @@
-package dstd.github.silentwake
+package dstd.github.keepitquiet
 
 import android.content.BroadcastReceiver
 import android.content.Context

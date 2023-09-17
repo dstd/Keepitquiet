@@ -1,8 +1,8 @@
-package dstd.github.silentwake
+package dstd.github.keepitquiet
 
 import android.annotation.SuppressLint
 import android.util.Log
-import dstd.github.silentwake.utils.suppressExceptions
+import dstd.github.keepitquiet.utils.suppressExceptions
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
