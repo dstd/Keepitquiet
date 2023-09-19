@@ -5,6 +5,7 @@ import dstd.github.keepitquiet.utils.SimplePreferences
 
 class Settings(context: Context): SimplePreferences(context) {
     var combineLevels: Boolean by BoolPreference(false)
+    var highlightMutedMusic: Boolean by BoolPreference(true)
     var reduceWhenOff: Boolean by BoolPreference(true)
     var reduceWhenStopMusic: Boolean by BoolPreference(false)
     var reducedVolumeLevel: Int by IntPreference(0)

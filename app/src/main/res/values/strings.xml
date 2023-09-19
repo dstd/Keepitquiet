@@ -9,4 +9,5 @@
     <string name="volume_level_percent" translatable="false">%d%%</string>
     <string name="take_current_volume_level">Take current volume level</string>
     <string name="combine_volume">Combine ringer and notifications volume</string>
+    <string name="highlight_muted_music">When starting music, highlight if the volume is turned down</string>
 </resources>

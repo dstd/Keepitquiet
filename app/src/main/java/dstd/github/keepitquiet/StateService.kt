@@ -96,6 +96,15 @@ class StateService : Service() {
             }
             if (isPlaying)
                 queue.removeCallbacks(reduceVolumeTask)
+
+            if (settings.highlightMutedMusic) {
+                val am = getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+                if (am != null && !hasMusic && isPlaying && am.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) {
+                    logd { "playback started with 0 volume" }
+                    am.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI)
+                }
+            }
+
             hasMusic = isPlaying
         }
     }

@@ -42,6 +42,11 @@ class MainActivity: Activity() {
             setOnClickListener { applyCombineState() }
         }
 
+        views.highlightMutedMusic.apply {
+            isChecked = settings.highlightMutedMusic
+            setOnClickListener { applyMutedHightlight() }
+        }
+
         views.debug.apply {
             fun updateState() = if (isChecked)
                 setText(R.string.enable_debug)
@@ -78,6 +83,10 @@ class MainActivity: Activity() {
         }
         settings.combineLevels = combine
         StateService.applyActiveState()
+    }
+
+    private fun applyMutedHightlight() {
+        settings.highlightMutedMusic = views.highlightMutedMusic.isChecked
     }
 
     private fun takeCurrentVolume() {

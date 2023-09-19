@@ -9,4 +9,5 @@
     <string name="reduce_volume">Снижать громкость до:</string>
     <string name="take_current_volume_level">Взять текущую громкость</string>
     <string name="combine_volume">Объединить громкость уведомлений и звонка</string>
+    <string name="highlight_muted_music">При старте музыки, подсвечивать что громкость выключена</string>
 </resources>

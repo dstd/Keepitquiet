@@ -56,6 +56,13 @@
                 android:text="@string/combine_volume"
                 />
             <CheckBox
+                android:id="@+id/highlightMutedMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="@string/highlight_muted_music"
+                />
+            <CheckBox
                 android:id="@+id/reduceWhenOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
