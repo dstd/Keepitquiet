@@ -1,17 +1,16 @@
 package dstd.github.keepitquiet
 
-import android.app.Activity
+import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
-import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.SeekBar
+import androidx.fragment.app.FragmentActivity
 import dstd.github.keepitquiet.databinding.ActivityMainBinding
 
-class MainActivity: Activity() {
+class MainActivity: FragmentActivity(), VolumeLevelDialog.Delegate {
     private val settings = App.dependencies.settings
 
     private lateinit var views: ActivityMainBinding
@@ -30,12 +29,13 @@ class MainActivity: Activity() {
             setOnClickListener { applyReduceState() }
         }
 
-        views.volumeLevel.apply {
-            setOnSeekBarChangeListener(seekBarListener)
-            max = 100
+        views.reduceWhenOffLevel.apply {
+            setOnClickListener { chooseLevel(TAG_TURN_OFF) }
         }
 
-        views.takeCurrent.setOnClickListener { takeCurrentVolume() }
+        views.reduceWhenStopMusicLevel.apply {
+            setOnClickListener { chooseLevel(TAG_MUSIC_STOP) }
+        }
 
         views.combineVolume.apply {
             isChecked = settings.combineLevels
@@ -61,7 +61,7 @@ class MainActivity: Activity() {
             updateState()
         }
 
-        applyVolumeLevel()
+        updateLevelValues()
         StateService.applyActiveState()
     }
 
@@ -89,30 +89,35 @@ class MainActivity: Activity() {
         settings.highlightMutedMusic = views.highlightMutedMusic.isChecked
     }
 
-    private fun takeCurrentVolume() {
-        val am = getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
-        settings.reducedVolumeLevel = am.getStreamVolume(AudioManager.STREAM_MUSIC)
-        applyVolumeLevel()
+    private fun chooseLevel(tag: String) {
+        val initialLevel = when (tag) {
+            TAG_TURN_OFF -> settings.screenOffLevel
+            TAG_MUSIC_STOP -> settings.musicStopLevel
+            else -> return
+        }
+        VolumeLevelDialog().withVolumeLevel(initialLevel).show(supportFragmentManager, tag)
     }
 
-    private fun applyVolumeLevel() {
-        val am = getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
-        views.volumeLevel.apply {
-            max = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-            progress = settings.reducedVolumeLevel
-            seekBarListener.onProgressChanged(this, progress, false)
-        }
+    private fun updateLevelValues() {
+        views.reduceWhenOffLevel.text = getString(R.string.volume_level_percent, volumePercent(settings.screenOffLevel))
+        views.reduceWhenStopMusicLevel.text = getString(R.string.volume_level_percent, volumePercent(settings.musicStopLevel))
     }
 
-    private val seekBarListener = object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-            val percent = if (seekBar.max > 0) progress * 100 / seekBar.max else 0
-            views.volumePercent.text = getString(R.string.volume_level_percent, percent)
-            if (fromUser)
-                settings.reducedVolumeLevel = seekBar.progress
+    override fun onVolumeChanged(dialog: VolumeLevelDialog, value: Int) {
+        when (dialog.tag) {
+            TAG_TURN_OFF ->
+                settings.screenOffLevel = value
+            TAG_MUSIC_STOP ->
+                settings.musicStopLevel = value
+            else ->
+                return
         }
 
-        override fun onStartTrackingTouch(seekBar: SeekBar) = Unit
-        override fun onStopTrackingTouch(seekBar: SeekBar) = Unit
+        updateLevelValues()
+    }
+
+    companion object {
+        const val TAG_TURN_OFF = "tag1"
+        const val TAG_MUSIC_STOP = "tag2"
     }
 }

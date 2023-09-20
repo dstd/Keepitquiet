@@ -1,11 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Keepitquiet</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
     <string name="enable_debug">Debug mode</string>
     <string name="service_notification_text">Service is active</string>
     <string name="show_notification">Show notification</string>
     <string name="reduce_when_off">Reduce volume when turns off</string>
     <string name="reduce_when_music_stop">Reduce volume when music stops</string>
-    <string name="reduce_volume">Reduce volume level to:</string>
+    <string name="volume_level">Volume level</string>
     <string name="volume_level_percent" translatable="false">%d%%</string>
     <string name="take_current_volume_level">Take current volume level</string>
     <string name="combine_volume">Combine ringer and notifications volume</string>

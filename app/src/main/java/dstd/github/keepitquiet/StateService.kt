@@ -110,7 +110,7 @@ class StateService : Service() {
     }
 
     private val reduceVolumeTask = Runnable {
-        StateService.reduceVolume(source = "stop-playing")
+        StateService.reduceVolume(source = "stop-playing", settings.musicStopLevel)
     }
 
     override fun onDestroy() {
@@ -142,16 +142,15 @@ class StateService : Service() {
                 context.stopService(intent)
         }
 
-        fun reduceVolume(source: String) {
+        fun reduceVolume(source: String, reducedLevel: Int) {
             val stream = AudioManager.STREAM_MUSIC
             val context = App.context ?: return
             val am = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
             val max = am.getStreamMaxVolume(stream)
             val current = am.getStreamVolume(stream)
-            val new = App.dependencies.settings.reducedVolumeLevel
-            if (new < current) {
-                logd { "reduce due to $source, $current > $new of $max" }
-                am.setStreamVolume(AudioManager.STREAM_MUSIC, new, 0)
+            if (reducedLevel < current) {
+                logd { "reduce due to $source, $current > $reducedLevel of $max" }
+                am.setStreamVolume(AudioManager.STREAM_MUSIC, reducedLevel, 0)
             }
         }
 
@@ -168,9 +167,13 @@ class StateService : Service() {
                 else -> return logd { "volume ignored: $sourceStream" }
             }
             val sourceLevel = am.getStreamVolume(sourceStream)
-            am.setStreamVolume(targetStream, sourceLevel, 0)
-
-            logd { "volume changed: $targetStream=$sourceLevel, from $sourceStream" }
+            try {
+                am.setStreamVolume(targetStream, sourceLevel, 0)
+                logd { "volume changed: $targetStream=$sourceLevel, from $sourceStream" }
+            }
+            catch (ignore: Throwable) {
+                logd { "volume !changed: $targetStream=$sourceLevel, from $sourceStream, error: ${ignore.message}" }
+            }
         }
     }
 }
@@ -192,7 +195,7 @@ class StateReceiver: BroadcastReceiver() {
         if (am.isMusicActive)
             return logd { "wont reduce, music playing" }
 
-        StateService.reduceVolume(source = "screen-off")
+        StateService.reduceVolume(source = "screen-off", settings.screenOffLevel)
     }
 
     private fun onVolumeChange(intent: Intent) {
