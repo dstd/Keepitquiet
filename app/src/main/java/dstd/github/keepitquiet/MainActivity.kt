@@ -71,13 +71,23 @@ class MainActivity: FragmentActivity(), VolumeLevelDialog.Delegate {
         StateService.applyActiveState()
     }
 
-    private fun applyCombineState() {
+    private fun applyCombineState(checkPermissions: Boolean = true) {
         val combine = views.combineVolume.isChecked
-        if (combine && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (checkPermissions && combine && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager ?: return
             if (!nm.isNotificationPolicyAccessGranted) {
-                views.combineVolume.isChecked = false
-                startActivity(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+                AlertDialog.Builder(this)
+                    .setMessage(resources.getString(R.string.dnd_permission_hint, resources.getString(R.string.app_name)))
+                    .setPositiveButton(R.string.action_settings) { d, _ ->
+                        views.combineVolume.isChecked = false
+                        d.dismiss()
+                        startActivity(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+                    }
+                    .setNegativeButton(R.string.action_ignore) { d, _ ->
+                        d.dismiss()
+                        applyCombineState(checkPermissions = false)
+                    }
+                    .show()
                 return
             }
         }

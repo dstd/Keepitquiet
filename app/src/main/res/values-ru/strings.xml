@@ -3,6 +3,8 @@
     <string name="app_name">Эй, потише!</string>
     <string name="action_ok">OK</string>
     <string name="action_cancel">Отмена</string>
+    <string name="action_ignore">Игнорировать</string>
+    <string name="action_settings">Настройки</string>
     <string name="enable_debug">Отладочный режим</string>
     <string name="service_notification_text">Сервис активен</string>
     <string name="show_notification">Показывать уведомление</string>
@@ -11,5 +13,6 @@
     <string name="volume_level">Уровень громкости</string>
     <string name="take_current_volume_level">Взять текущую громкость</string>
     <string name="combine_volume">Объединить громкость уведомлений и звонка</string>
+    <string name="dnd_permission_hint">Объединение громкости не будет работать в режиме \"Не беспокоить\", если не выдать разрешение.\n\nЧтобы выдать разрешение нажмите [Настройки], найдите \"%1$s\" и включите переключатель.\n\nИли нажмите [Игнорировать] если вам не важен режим \"Не беспокоить\"</string>
     <string name="highlight_muted_music">При старте музыки, подсвечивать что громкость выключена</string>
 </resources>
