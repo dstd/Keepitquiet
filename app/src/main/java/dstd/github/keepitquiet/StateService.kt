@@ -90,7 +90,7 @@ class StateService : Service() {
         override fun onPlaybackConfigChanged(configs: List<AudioPlaybackConfiguration>) {
             logd { "playback changed - ${configs.map { it.audioAttributes.usage }}" }
             val isPlaying = configs.any { it.audioAttributes.usage == AudioAttributes.USAGE_MEDIA }
-            if (hasMusic && !isPlaying) {
+            if (settings.reduceWhenStopMusic && hasMusic && !isPlaying) {
                 queue.removeCallbacks(reduceVolumeTask)
                 queue.postDelayed(reduceVolumeTask, 10000)
             }
